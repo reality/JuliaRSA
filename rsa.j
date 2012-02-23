@@ -17,5 +17,31 @@ function is_coprime(a, b)
     end
     return is_coprime(b, a % b)
 end
-                                                                                                                 
-println(probably_prime(571))
+
+function get_next_prime(p)
+    if p < 4 
+        return p
+    end
+    
+    if probably_prime(p)
+        return p
+    else
+        return get_next_prime(p + 2)
+    end
+end
+
+function generate_prime(bitlength)
+    p = 1
+    for x = 0:bitlength
+        p = p * 2 + randi((0, 1))
+    end
+
+    #p = (p << 1) + 1
+    if p % 2 == 0
+        p += 1
+    end
+
+    return get_next_prime(p)
+end
+
+println(generate_prime(8))
